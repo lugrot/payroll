@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: payroll
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  php:
+    build: ./docker/php
+    ports:
+      - '9000:9000'
+    volumes:
+      - ./:/var/www/html
+
+  nginx:
+    build: ./docker/nginx
+    ports:
+      - '8080:80'
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/cond.d/default.conf
+    links:
+      - php
+
+volumes:
+  mysql_data:
