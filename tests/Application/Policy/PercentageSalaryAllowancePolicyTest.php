@@ -24,7 +24,7 @@ class PercentageSalaryAllowancePolicyTest extends TestCase
 
     /**
      * @test
-     * @dataProvider arguments
+     * @dataProvider calculationArgumentsProvider
      */
     public function percentage_calculate(int $baseSalary, int $percentagePayrollAllowance, int $expected): void
     {
@@ -35,7 +35,7 @@ class PercentageSalaryAllowancePolicyTest extends TestCase
         $this->assertEquals($expected, $payrollAllowanceAmount->amount());
     }
 
-    public function arguments(): Generator
+    public function calculationArgumentsProvider(): Generator
     {
         yield [110000, 10, 11000];
         yield [100000, 5, 5000];
