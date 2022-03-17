@@ -25,3 +25,8 @@ $ docker-compose exec php composer prepare-database
 ```shell
 $ open http://$(docker-compose port nginx 80)
 ```
+
+### Run tests
+```shell
+$ docker-compose exec php php vendor/bin/phpunit
+```
