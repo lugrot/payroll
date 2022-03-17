@@ -41,13 +41,13 @@ class FixedSalaryAllowancePolicyTest extends TestCase
         yield 'employee has not worked for a year' => [100000, 10, 0];
         yield 'employee has worked for a year' => [100000, 12, 10000];
         yield 'employee has worked between one and 10 years' => [100000, 60, 50000];
-        yield 'employee has worked for 10 years' => [100000, 120, 1000];
+        yield 'employee has worked for 10 years' => [100000, 120, 100000];
         yield 'employee has worked for more than 10 years' => [100000, 180, 100000];
     }
 
     private function buildEmployee(int $salary, int $seniorityInMonths): Employee
     {
-        $department = new Department(Uuid::uuid4(), 'test', 100, SalaryAllowanceType::Fixed);
+        $department = new Department(Uuid::uuid4(), 'test', 10000, SalaryAllowanceType::Fixed);
 
         return new Employee(
             Uuid::uuid4(),
