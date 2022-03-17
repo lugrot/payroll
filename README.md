@@ -8,7 +8,7 @@ $ cp .env.dist .env
 
 2. Run containers
 ```shell
-$ docker-compose up
+$ docker-compose up -d
 ```
 
 3. Install dependencies
