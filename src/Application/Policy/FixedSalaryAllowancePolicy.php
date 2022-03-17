@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Policy;
+namespace App\Application\Policy;
 
 use App\Domain\Entity\Employee;
-use Money\Currency;
-use Money\Money;
+use App\Domain\Policy\SalaryAllowancePolicyInterface;
+use App\Domain\ValueObject\Currency;
+use App\Domain\ValueObject\Money;
 
 class FixedSalaryAllowancePolicy implements SalaryAllowancePolicyInterface
 {
@@ -14,9 +15,7 @@ class FixedSalaryAllowancePolicy implements SalaryAllowancePolicyInterface
 
     public function calculate(Employee $employee): Money
     {
-        $amount = new Money(
-            $employee->getSalaryAllowanceAmount(), new Currency($employee->getCurrency())
-        );
+        $amount = new Money($employee->getSalaryAllowanceAmount(), new Currency($employee->getCurrency()));
         $seniorityRate = $this->getSeniorityRate($employee->getSeniorityInYears());
 
         return $amount->multiply($seniorityRate);

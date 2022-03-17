@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Factory;
+namespace App\Application\Factory;
 
-use App\Domain\Entity\SalaryAllowanceType;
-use App\Domain\Policy\FixedSalaryAllowancePolicy;
-use App\Domain\Policy\PercentageSalaryAllowancePolicy;
+use App\Application\Policy\FixedSalaryAllowancePolicy;
+use App\Application\Policy\PercentageSalaryAllowancePolicy;
 use App\Domain\Policy\SalaryAllowancePolicyInterface;
+use App\Domain\ValueObject\SalaryAllowanceType;
 
-class SalaryAllowancePolicyFactory
+class SalaryAllowancePolicyFactory implements SalaryAllowancePolicyFactoryInterface
 {
     public function create(SalaryAllowanceType $salaryAllowanceType): SalaryAllowancePolicyInterface
     {

@@ -4,22 +4,23 @@ declare(strict_types=1);
 
 namespace App\Domain\Entity;
 
+use App\Domain\Clock\ClockInterface;
+use App\Domain\Clock\SystemClock;
+use App\Domain\ValueObject\Currency;
+use App\Domain\ValueObject\Money;
+use App\Domain\ValueObject\SalaryAllowanceType;
 use App\Infrastructure\Repository\EmployeeRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\ManyToOne;
-use Money\Currency;
-use Money\Money;
 use Ramsey\Uuid\UuidInterface;
 
 #[Entity(repositoryClass: EmployeeRepository::class)]
 class Employee
 {
     #[Id]
-    #[GeneratedValue]
     #[Column(type: "uuid", unique: true)]
     private UuidInterface $id;
 
@@ -48,7 +49,7 @@ class Employee
         int $baseSalary,
         string $currency,
         Department $department,
-        DateTimeImmutable $dateOfHire
+        ClockInterface $dateOfHire
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -56,17 +57,17 @@ class Employee
         $this->baseSalary = $baseSalary;
         $this->currency = $currency;
         $this->department = $department;
-        $this->dateOfHire = $dateOfHire;
+        $this->dateOfHire = $dateOfHire->getDateTime();
     }
 
     public function getSeniorityInYears(): int
     {
-        return (new DateTimeImmutable())->diff($this->dateOfHire)->y;
+        return (new SystemClock())->getDateTime()->diff($this->dateOfHire)->y;
     }
 
     public function getBaseSalary(): Money
     {
-        return new Money($this->baseSalary, new Currency($this->currency));
+        return new Money($this->baseSalary, new Currency($this->getCurrency()));
     }
 
     public function getCurrency(): string

@@ -3,12 +3,13 @@
 declare(strict_types=1);
 
 
-namespace App\Tests\Domain\Policy;
+namespace App\Tests\Application\Policy;
 
+use App\Application\Policy\FixedSalaryAllowancePolicy;
+use App\Domain\Clock\FixedClock;
 use App\Domain\Entity\Department;
 use App\Domain\Entity\Employee;
-use App\Domain\Entity\SalaryAllowanceType;
-use App\Domain\Policy\FixedSalaryAllowancePolicy;
+use App\Domain\ValueObject\SalaryAllowanceType;
 use DateTimeImmutable;
 use Generator;
 use PHPUnit\Framework\TestCase;
@@ -33,7 +34,7 @@ class FixedSalaryAllowancePolicyTest extends TestCase
 
         $amount = $this->policy->calculate($employee);
 
-        $this->assertEquals($expected, $amount->getAmount());
+        $this->assertEquals($expected, $amount->amount());
     }
 
     private function calculationArgumentsProvider(): Generator
@@ -56,7 +57,7 @@ class FixedSalaryAllowancePolicyTest extends TestCase
             $salary,
             'USD',
             $department,
-            (new DateTimeImmutable())->modify(sprintf('-%d months', $seniorityInMonths))
+            (new FixedClock((new DateTimeImmutable())->modify(sprintf('-%d months', $seniorityInMonths))))
         );
     }
 }

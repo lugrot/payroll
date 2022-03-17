@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\Policy;
+namespace App\Application\Policy;
 
 use App\Domain\Entity\Employee;
-use Money\Money;
+use App\Domain\Policy\SalaryAllowancePolicyInterface;
+use App\Domain\ValueObject\Money;
 
 class PercentageSalaryAllowancePolicy implements SalaryAllowancePolicyInterface
 {

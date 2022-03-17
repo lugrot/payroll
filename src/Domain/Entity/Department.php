@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Entity;
 
+use App\Domain\ValueObject\SalaryAllowanceType;
 use App\Infrastructure\Repository\DepartmentRepository;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
 use Ramsey\Uuid\UuidInterface;
 
@@ -15,7 +15,6 @@ use Ramsey\Uuid\UuidInterface;
 class Department
 {
     #[Id]
-    #[GeneratedValue]
     #[Column(type: "uuid", unique: true)]
     private UuidInterface $id;
 

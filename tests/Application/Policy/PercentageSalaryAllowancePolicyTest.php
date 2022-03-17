@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 
-namespace App\Tests\Domain\Policy;
+namespace App\Tests\Application\Policy;
 
+use App\Application\Policy\PercentageSalaryAllowancePolicy;
+use App\Domain\Clock\SystemClock;
 use App\Domain\Entity\Department;
 use App\Domain\Entity\Employee;
-use App\Domain\Entity\SalaryAllowanceType;
-use App\Domain\Policy\PercentageSalaryAllowancePolicy;
-use DateTimeImmutable;
+use App\Domain\ValueObject\SalaryAllowanceType;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -33,15 +33,15 @@ class PercentageSalaryAllowancePolicyTest extends TestCase
 
         $payrollAllowanceAmount = $this->percentagePolicy->calculate($employee);
 
-        $this->assertEquals($expected, $payrollAllowanceAmount->getAmount());
+        $this->assertEquals($expected, $payrollAllowanceAmount->amount());
     }
 
     public function arguments(): Generator
     {
-        yield [1100, 10, 110];
-        yield [1000, 5, 50];
-        yield [2000, 15, 300];
-        yield [2200, 12, 264];
+        yield [110000, 10, 11000];
+        yield [100000, 5, 5000];
+        yield [200000, 15, 30000];
+        yield [220000, 12, 26400];
     }
 
     private function buildEmployee(int $baseSalary, int $percentagePayrollAllowance): Employee
@@ -60,7 +60,7 @@ class PercentageSalaryAllowancePolicyTest extends TestCase
             $baseSalary,
             'USD',
             $department,
-            new DateTimeImmutable()
+            new SystemClock()
         );
     }
 }

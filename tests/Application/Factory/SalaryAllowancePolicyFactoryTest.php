@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 
-namespace App\Tests\Domain\Factory;
+namespace App\Tests\Application\Factory;
 
-use App\Domain\Entity\SalaryAllowanceType;
-use App\Domain\Factory\SalaryAllowancePolicyFactory;
-use App\Domain\Policy\FixedSalaryAllowancePolicy;
-use App\Domain\Policy\PercentageSalaryAllowancePolicy;
+use App\Application\Factory\SalaryAllowancePolicyFactory;
+use App\Application\Policy\FixedSalaryAllowancePolicy;
+use App\Application\Policy\PercentageSalaryAllowancePolicy;
+use App\Domain\ValueObject\SalaryAllowanceType;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
@@ -31,11 +31,11 @@ class SalaryAllowancePolicyFactoryTest extends TestCase
 
     public function validPolicyProvider(): Generator
     {
-        yield 'creating percentage salary allowance policy for percentage type' => [
+        yield 'percentage salary allowance policy for percentage type' => [
             SalaryAllowanceType::Percentage,
             PercentageSalaryAllowancePolicy::class
         ];
-        yield 'creating fixed salary allowance policy for fixed type' => [
+        yield 'fixed salary allowance policy for fixed type' => [
             SalaryAllowanceType::Fixed,
             FixedSalaryAllowancePolicy::class
         ];

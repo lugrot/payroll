@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace App\Domain\Policy;
 
 use App\Domain\Entity\Employee;
-use Money\Money;
+use App\Domain\ValueObject\Money;
 
 interface SalaryAllowancePolicyInterface
 {
