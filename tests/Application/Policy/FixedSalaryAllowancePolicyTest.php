@@ -39,10 +39,10 @@ class FixedSalaryAllowancePolicyTest extends TestCase
     private function calculationArgumentsProvider(): Generator
     {
         yield 'employee has not worked for a year' => [100000, 10, 0];
-        yield 'employee has worked for a year' => [100000, 12, 10000];
-        yield 'employee has worked between one and 10 years' => [100000, 60, 50000];
-        yield 'employee has worked for 10 years' => [100000, 120, 100000];
-        yield 'employee has worked for more than 10 years' => [100000, 180, 100000];
+        yield 'employee has been working for a year' => [100000, 12, 10000];
+        yield 'employee has been working between one and 10 years' => [100000, 60, 50000];
+        yield 'employee has been working for 10 years' => [100000, 120, 100000];
+        yield 'employee has been working for more than 10 years' => [100000, 180, 100000];
     }
 
     private function buildEmployee(int $salary, int $seniorityInMonths): Employee
