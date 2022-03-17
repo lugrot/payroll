@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Tests\Application\Factory;
 
 use App\Application\Factory\SalaryAllowancePolicyFactory;

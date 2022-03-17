@@ -6,6 +6,6 @@ namespace App\Domain\ValueObject;
 
 enum SalaryAllowanceType: string
 {
-    case Fixed = 'fixed';
-    case Percentage = 'percentage';
-}
+case Fixed = 'fixed';
+case Percentage = 'percentage';
+    }
